@@ -120,7 +120,7 @@ def preprocess(stock_name, test_data_size = 200):
 
 def train_model(stock_name, x_train, y_train, x_test, y_test, sc_close ,unroll_length = 50, retrain = False):
     batch_size = 32
-    epochs = 10
+    epochs = 5
     if retrain:
         model = lstm.lstm_model(x_train.shape[-1], output_dim=unroll_length, return_sequences=True)
         
