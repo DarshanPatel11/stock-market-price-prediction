@@ -8,7 +8,7 @@ import os
 #import quandl
 #quandl.ApiConfig.api_key = "cxrag-s3woSgJbjLRRap"
 # from nsepy import get_history
-impoty yfinance as yf
+import yfinance as yf
 import tweepy as tp
 from datetime import date, timedelta
 from textblob import TextBlob
