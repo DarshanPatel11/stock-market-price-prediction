@@ -16,3 +16,4 @@ nsepy==0.8
 beautifulsoup4==4.4.1
 bs4==0.0.1
 lxml==3.8.0
+yfinance
