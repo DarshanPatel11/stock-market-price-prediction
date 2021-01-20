@@ -141,8 +141,8 @@ def train_model(stock_name, x_train, y_train, x_test, y_test, sc_close ,unroll_l
         else:
             model = load_model(os.getcwd() + "/data/" + stock_name+".h5")
     prediction = model.predict(x_test, batch_size=batch_size)
-    prediction = sc_close.inverse_transform(prediction)
     print(prediction.shape, x_text.shape)
+    prediction = sc_close.inverse_transform(prediction)
     y_test = sc_close.inverse_transform(y_test)
     #vs.plot_lstm_prediction(y_test, prediction)
     return model, prediction
