@@ -34,7 +34,7 @@ def get_stock_data(stock_name, first_time=False):
     save = stock_name + ".csv"
     path = os.getcwd() + "/data/" + save
     if first_time:
-        print('file written...')
+        print(f'file written in path: {path}...')
         data.to_csv(path)
     else:
         data.to_csv(path, mode='a', header=False)
@@ -59,6 +59,7 @@ def get_news_data(stock_name, first_time=False):
     #    print(t.created_at.strftime('%Y-%m-%d'), t.text)
     save = stock_name + ".csv"
     path = os.getcwd() + "/data/" + save
+    print(f'news_data path: {path}')
     data = pd.read_csv(path)
     senti = data.loc[data['Date'] == since]['sentiment']
     #print(since)
