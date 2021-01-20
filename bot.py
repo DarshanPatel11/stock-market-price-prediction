@@ -19,7 +19,7 @@ import visualize as vs
 import stock_data as sd
 from keras.models import load_model
 
-stock_list = {'HDFCBANK':'HDFCBANK', 'BAJAJ-AUTO':'BAJAJ-AUTO', 'HDFCLIFE':'HDFCLIFE', 'TCS':'TCS', 'RIIL':'RIIL', 'TATAPOWER':'TATAPOWER','INDIGO':'INDIGO', 'BPCL':'BPCL', 'BRITANNIA':'BRITANNIA', 'TATASTEEL':'TATASTEEL'}
+stock_list = {'HDFCBANK':'HDFCBANK.NS', 'BAJAJ-AUTO':'BAJAJ-AUTO', 'HDFCLIFE':'HDFCLIFE', 'TCS':'TCS', 'RIIL':'RIIL.NS', 'TATAPOWER':'TATAPOWER','INDIGO':'INDIGO', 'BPCL':'BPCL', 'BRITANNIA':'BRITANNIA', 'TATASTEEL':'TATASTEEL'}
 #enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
