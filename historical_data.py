@@ -7,7 +7,8 @@ Created on Tue Mar  5 09:14:06 2019
 import os
 #import quandl
 #quandl.ApiConfig.api_key = "cxrag-s3woSgJbjLRRap"
-from nsepy import get_history
+# from nsepy import get_history
+impoty yfinance as yf
 import tweepy as tp
 from datetime import date, timedelta
 from textblob import TextBlob
@@ -24,7 +25,8 @@ def get_stock_data(stock_name, first_time=False):
         start_date = date.today() - timedelta(1)
         #start_date = (date.today() - timedelta(1)).strftime('%Y-%m-%d')
     #data = quandl.get(stock_name, start_date=start_date)
-    data = get_history(symbol=stock_name, start=start_date, end=date.today())
+#     data = get_history(symbol=stock_name, start=start_date, end=date.today())
+    data = yf.download(stock_name, start=start_date, end=date.today())
     print(data.head())
     data['sentiment'] = 0
     for ind, row in data.iterrows():
