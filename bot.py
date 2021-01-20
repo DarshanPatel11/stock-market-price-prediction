@@ -36,6 +36,7 @@ def start(bot, update):
 def get_stock_data(bot, update):
     message = update.message.text.split(" ")
 #     stock_code = stock_list[message[-1]]
+    stock_code = message[-1]
     #if message[-1] == "IBM":
     #    stock_code = "EOD/IBM"
     first_time = check_first_time(message[-1])
