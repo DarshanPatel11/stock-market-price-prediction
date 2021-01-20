@@ -34,6 +34,7 @@ def get_stock_data(stock_name, first_time=False):
     save = stock_name + ".csv"
     path = os.getcwd() + "/data/" + save
     if first_time:
+        print('file written...')
         data.to_csv(path)
     else:
         data.to_csv(path, mode='a', header=False)
