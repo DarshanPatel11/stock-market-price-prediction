@@ -6,6 +6,7 @@ Created on Tue Mar 19 09:05:15 2019
 """
 
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
 def get_normalised_data(data):
@@ -15,13 +16,13 @@ def get_normalised_data(data):
     data[numerical] = scaler.fit_transform(data[numerical])
     '''
     sc_open = MinMaxScaler()
-    data['Open'] = sc_open.fit_transform(data['Open'])
+    data['Open'] = sc_open.fit_transform(np.array(data['Open'].values).reshape(1,-1)).reshape(-1)
     sc_close = MinMaxScaler()
-    data['Close'] = sc_close.fit_transform(data['Close'])
+    data['Close'] = sc_close.fit_transform(np.array(data['Close'].values).reshape(1,-1)).reshape(-1)
     sc_volume = MinMaxScaler()
-    data['Volume'] = sc_volume.fit_transform(data['Volume'])
+    data['Volume'] = sc_volume.fit_transform(np.array(data['Volume'].values).reshape(1,-1)).reshape(-1)
     sc_senti = MinMaxScaler()
-    data['sentiment'] = sc_senti.fit_transform(data['sentiment'])
+    data['sentiment'] = sc_senti.fit_transform(np.array(data['sentiment'].values).reshape(1,-1)).reshape(-1)
     #print(data)
     return data, sc_close
 
