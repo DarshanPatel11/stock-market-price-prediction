@@ -30,7 +30,7 @@ def get_stock_data(stock_name, first_time=False):
     for ind, row in data.iterrows():
         data.at[ind, 'sentiment'] = randrange(-10, 10)
     save = stock_name + ".csv"
-    path = "./data/" + save
+    path = os.getcwd() + "/data/" + save
     if first_time:
         data.to_csv(path)
     else:
@@ -55,7 +55,7 @@ def get_news_data(stock_name, first_time=False):
     #for t in tweets:
     #    print(t.created_at.strftime('%Y-%m-%d'), t.text)
     save = stock_name + ".csv"
-    path = "./data/" + save
+    path = os.getcwd() + "/data/" + save
     data = pd.read_csv(path)
     senti = data.loc[data['Date'] == since]['sentiment']
     #print(since)
