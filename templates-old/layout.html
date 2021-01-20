@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stock Market Price Prediction</title>
+    <header class="masthead text-white text-left">
+
+      <div class="container">
+
+
+        {% block content %}
+        {% endblock %}
+
+
+      </div>
+
+
+      </div>
+    </header>
+    <script type="text/javascript">
+      function submitForm(action)
+    {
+        document.getElementById('predictForm').action = action;
+        document.getElementById('predictForm').submit();
+    }
+    </script>
+  </body>
+</html>

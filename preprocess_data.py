@@ -27,23 +27,31 @@ def get_normalised_data(data):
     return data, sc_close
 
 def remove_data(data):
-    item = []
+    #item = []
     open = []
     close = []
     volume = []
     sentiment = []
     
-    i_counter = 0
+    #i_counter = 0
+    '''
     for i in range(len(data)-1, -1, -1):
-        item.append(i_counter)
+        #item.append(i_counter)
         open.append(data['Open'][i])
         close.append(data['Close'][i])
         volume.append(data['Volume'][i])
         sentiment.append(data['sentiment'][i])
-        i_counter += 1
-    
+        #i_counter += 1
+    '''
+    for i in range(len(data)):
+        #item.append(i_counter)
+        open.append(data['Open'][i])
+        close.append(data['Close'][i])
+        volume.append(data['Volume'][i])
+        sentiment.append(data['sentiment'][i])
+        #i_counter += 1
     stocks = pd.DataFrame()
-    stocks['Item'] = item
+    #stocks['Item'] = item
     stocks['Open'] = open
     stocks['Close'] = close
     stocks['Volume'] = volume

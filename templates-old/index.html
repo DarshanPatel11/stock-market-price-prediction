@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section>
+    		<!--	<form name="predictForm" method="POST" action="/predict" onsubmit="return validateForm()"> -->
+            <form name="predictForm" id="predictForm" method="POST">
+								<h1>Stock Market Price Prediction</h1>
+								<h1>
+								{% if label %} {{ label }} {% endif %}
+								</h1>
+								<br>
+									<label for="stock_name">Stock Name</label>
+                        <select name='stock_name'>
+                        {% for stock in stock_list.keys() %}
+                        <option value={{ stock }}>{{ stock }} </option>
+                        {% endfor %}
+						</select><br>
+								<button name = "predict" type="submit" onclick="submitForm('/predict')">
+								Predict
+								</button><br>
+                      <button type="submit" name = "get_stock_data" onclick="submitForm('/get_stock_data')">
+								Get Stock Data
+								</button><br>
+                <button type="submit" name = "get_news_data" onclick="submitForm('/get_news_data')">
+								Get News Data
+								</button><br>
+                <button type="submit" name = "train" onclick="submitForm('/train')">
+								Train
+								</button>
+    		</form>
+			{% if img %}
+			<img src='/data/{{img}}result.png' length=700 width=700/>
+			{% endif %}
+</section>
+{% endblock %}

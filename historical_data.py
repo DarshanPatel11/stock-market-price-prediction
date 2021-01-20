@@ -5,8 +5,9 @@ Created on Tue Mar  5 09:14:06 2019
 @author: djsma
 """
 import os
-import quandl
-quandl.ApiConfig.api_key = ""
+#import quandl
+#quandl.ApiConfig.api_key = "cxrag-s3woSgJbjLRRap"
+from nsepy import get_history
 import tweepy as tp
 from datetime import date, timedelta
 from textblob import TextBlob
@@ -16,26 +17,30 @@ def get_stock_data(stock_name, first_time=False):
     #stock_name = "EOD/IBM"
     #end_date = (date.today() - timedelta(1)).strftime('%Y-%m-%d')
     if first_time:
-        start_date = (date.today() - timedelta(60*30)).strftime('%Y-%m-%d')
+        #start_date = (date.today() - timedelta(60*30)).strftime('%Y-%m-%d')
+        start_date = date.today() - timedelta(60*30)
         #start_date = (date.today() - timedelta(6*30)).strftime('%Y-%m-%d')
     else:
-        start_date = (date.today() - timedelta(1)).strftime('%Y-%m-%d')
-    data = quandl.get(stock_name, start_date=start_date)
+        start_date = date.today() - timedelta(1)
+        #start_date = (date.today() - timedelta(1)).strftime('%Y-%m-%d')
+    #data = quandl.get(stock_name, start_date=start_date)
+    data = get_history(symbol=stock_name, start=start_date, end=date.today())
+    print(data.head())
     data['sentiment'] = 0
     for ind, row in data.iterrows():
         data.at[ind, 'sentiment'] = randrange(-10, 10)
-    save = stock_name.split('/')[-1] + ".csv"
+    save = stock_name + ".csv"
     path = os.getcwd() + "/data/" + save
     if first_time:
         data.to_csv(path)
     else:
         data.to_csv(path, mode='a', header=False)
     
-def get_news_data(stock_name,first_time=False):
-    consumer_key = ''
-    consumer_secret = ''
-    access_token = ''
-    access_token_secret = ''
+def get_news_data(stock_name, first_time=False):
+    consumer_key = 'buIbsIcCmFz4TtjMZhkle5yj9'
+    consumer_secret = 'UGkwtPUgeZHsYMtnFoMUfhkSGQPqGPKpIvurwxRVucIeCadXjG'
+    access_token = '2740611399-EG4rVgPrIduzCi2FUgTnRYuP5hAXITRA6NV0eTv'
+    access_token_secret = 'YsbFiqYxL1LH9gVEtpHyoRMf7hDfbUlNQW8V8qNp1h84o'
     auth = tp.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tp.API(auth)
@@ -49,7 +54,7 @@ def get_news_data(stock_name,first_time=False):
     tweets = tp.Cursor(api.search, q= search_words, lang='en', since = since).items(2000)
     #for t in tweets:
     #    print(t.created_at.strftime('%Y-%m-%d'), t.text)
-    save = stock_name.split('/')[-1] + ".csv"
+    save = stock_name + ".csv"
     path = os.getcwd() + "/data/" + save
     data = pd.read_csv(path)
     senti = data.loc[data['Date'] == since]['sentiment']
@@ -65,5 +70,5 @@ def get_news_data(stock_name,first_time=False):
     except Exception as e:
         print(e)
 #get_news_data("BAJAJ AUTO", True)
-#get_stock_data("EOD/IBM", first_time=True)
-#get_news_data("IBM", first_time=True)
+#get_stock_data("EOD/IBM")#, first_time=True)
+#get_news_data("IBM")#, first_time=True)
