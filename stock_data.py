@@ -17,13 +17,13 @@ def scale_range(x, input_range, target_range):
 def train_test_split_lstm(stocks, prediction_time=1, test_data_size=20, unroll_length=20):
     test_data_cut = test_data_size + unroll_length + 1
 
-    x_train = stocks[0:-prediction_time - test_data_cut].to_numpy()
-    y_train = stocks[prediction_time:-test_data_cut]['Close'].to_numpy()
+    x_train = stocks[0:-prediction_time - test_data_cut].values()
+    y_train = stocks[prediction_time:-test_data_cut]['Close'].values()
 
-    x_test = stocks[0 - test_data_cut:-prediction_time].to_numpy()
-    y_test = stocks[prediction_time - test_data_cut:]['Close'].to_numpy()
-    return x_train, y_train ,x_test, y_test
-#     return x_train, x_test, y_train, y_test
+    x_test = stocks[0 - test_data_cut:-prediction_time].values()
+    y_test = stocks[prediction_time - test_data_cut:]['Close'].values()
+    
+    return x_train, x_test, y_train, y_test
 
 
 def unroll(data, sequence_length=24):
