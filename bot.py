@@ -19,7 +19,7 @@ import visualize as vs
 import stock_data as sd
 from keras.models import load_model
 
-stock_list = {'HDFCBANK':'HDFCBANK', 'BAJAJ-AUTO':'BAJAJ-AUTO', 'HDFCLIFE':'HDFCLIFE', 'TCS':'TCS', 'RIIL':'RIIL', 'TATAPOWER':'TATAPOWER','INDIGO':'INDIGO', 'BPCL':'BPCL', 'BRITANNIA':'BRITANNIA', 'TATASTEEL':'TATASTEEL'}
+stock_list = {'HDFCBANK':'HDFCBANK.NS', 'BAJAJ-AUTO':'BAJAJ-AUTO', 'HDFCLIFE':'HDFCLIFE', 'TCS':'TCS', 'RIIL':'RIIL.NS', 'TATAPOWER':'TATAPOWER','INDIGO':'INDIGO', 'BPCL':'BPCL', 'BRITANNIA':'BRITANNIA', 'TATASTEEL':'TATASTEEL'}
 #enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -35,7 +35,8 @@ def start(bot, update):
     
 def get_stock_data(bot, update):
     message = update.message.text.split(" ")
-    stock_code = stock_list[message[-1]]
+#     stock_code = stock_list[message[-1]]
+    stock_code = message[-1]
     #if message[-1] == "IBM":
     #    stock_code = "EOD/IBM"
     first_time = check_first_time(message[-1])
@@ -119,7 +120,7 @@ def preprocess(stock_name, test_data_size = 200):
 
 def train_model(stock_name, x_train, y_train, x_test, y_test, sc_close ,unroll_length = 50, retrain = False):
     batch_size = 32
-    epochs = 10
+    epochs = 5
     if retrain:
         model = lstm.lstm_model(x_train.shape[-1], output_dim=unroll_length, return_sequences=True)
         
@@ -140,8 +141,8 @@ def train_model(stock_name, x_train, y_train, x_test, y_test, sc_close ,unroll_l
         else:
             model = load_model(os.getcwd() + "/data/" + stock_name+".h5")
     prediction = model.predict(x_test, batch_size=batch_size)
+    print(prediction.shape, x_test.shape)
     prediction = sc_close.inverse_transform(prediction)
-    #print(prediction)
     y_test = sc_close.inverse_transform(y_test)
     #vs.plot_lstm_prediction(y_test, prediction)
     return model, prediction
